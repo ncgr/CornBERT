@@ -1,5 +1,5 @@
 # CornBERT
-An implementatin of the CornBERT model
+An implementatin of the [CornBERT](https://towardsdatascience.com/bringing-bert-to-the-field-how-to-predict-gene-expression-from-corn-dna-9287af91fcf8) model
 
 ## Installation
 Currently the only dependency is [PyTorch](https://pytorch.org/).
