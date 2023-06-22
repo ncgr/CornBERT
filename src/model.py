@@ -3,11 +3,12 @@ import torch.nn as nn
 
 from transformers import RobertaConfig, RobertaModel, AutoTokenizer
 
-class cornBERT(nn.Module):
+
+class CornBERT(nn.Module):
     def __init__(self):
         super().__init__()
 
-	    # make roberta encoder
+        # make roberta encoder
         # set max input length to 256
         configuration = RobertaConfig(max_position_embeddings=256)
         self.encoder = RobertaModel(configuration)
@@ -21,7 +22,6 @@ class cornBERT(nn.Module):
         x = self.rh_L2(x)
         return x
 
-# test that the model is functional
 
 # generate random input
 from random import choice
@@ -31,6 +31,6 @@ tokenizer = AutoTokenizer.from_pretrained("roberta-base")
 inputs    = tokenizer(promoter, return_tensors="pt")
 
 # run the model on the random input
-cbt = cornBERT()
+cbt = CornBERT()
 out = cbt(inputs)
 print(out.size())
