@@ -23,14 +23,17 @@ class CornBERT(nn.Module):
         return x
 
 
-# generate random input
-from random import choice
+# test that the model is functional
+if __name__ == '__main__':
 
-promoter  = "".join([choice("ACTGN") for i in range(256)])
-tokenizer = AutoTokenizer.from_pretrained("roberta-base")
-inputs    = tokenizer(promoter, return_tensors="pt")
+    # generate random input
+    from random import choice
 
-# run the model on the random input
-cbt = CornBERT()
-out = cbt(inputs)
-print(out.size())
+    promoter  = "".join([choice("ACTGN") for i in range(256)])
+    tokenizer = AutoTokenizer.from_pretrained("roberta-base")
+    inputs    = tokenizer(promoter, return_tensors="pt")
+
+    # run the model on the random input
+    cbt = CornBERT()
+    out = cbt(inputs)
+    print(out.size())
