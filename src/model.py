@@ -25,16 +25,18 @@ class CornBERT(nn.Module):
         x = torch.mean(x.last_hidden_state,dim=1) # avg token embeddings
         return x
 
+
 # test that the model is functional
+if __name__ == '__main__':
 
-# generate random input
-from random import choice
+    # generate random input
+    from random import choice
 
-promoter  = "".join([choice("ACTGN") for i in range(256)])
-tokenizer = AutoTokenizer.from_pretrained("roberta-base")
-inputs    = tokenizer(promoter, return_tensors="pt")
+    promoter  = "".join([choice("ACTGN") for i in range(256)])
+    tokenizer = AutoTokenizer.from_pretrained("roberta-base")
+    inputs    = tokenizer(promoter, return_tensors="pt")
 
-# run the model on the random input
-cbt = CornBERT()
-out = cbt(inputs)
-print(out.size())
+    # run the model on the random input
+    cbt = CornBERT()
+    out = cbt(inputs)
+    print(out.size())
