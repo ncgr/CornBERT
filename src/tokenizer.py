@@ -7,6 +7,8 @@ from tokenizers import Tokenizer
 from tokenizers.models import BPE
 from tokenizers.pre_tokenizers import Whitespace
 from tokenizers.trainers import BpeTrainer
+from transformers import RobertaTokenizerFast
+from transformers import PreTrainedTokenizerFast
 
 from fasta import fastaToSequences
 
@@ -57,7 +59,7 @@ def trainTokenizerOnFastas(fasta_files, *args, **kwargs):
 
 def loadCornbertTokenizer(config_file=TOKENIZER_CONFIG_FILE):
     # reload the tokenizer from its tokenizer file
-    return Tokenizer.from_file(config_file)
+    return RobertaTokenizerFast(tokenizer_file=config_file)
 
 
 if __name__ == '__main__':
@@ -72,22 +74,22 @@ if __name__ == '__main__':
     trainTokenizerOnFastas(fasta_files)
 
     # test the tokenizer using the input sequences
-    shortest = sys.maxsize
-    longest = 0
-    average = 0
-    num_sequences = 0
-    tokenizer = loadCornbertTokenizer()
-    for fasta in fasta_files:
-        for sequence in fastaToSequences(fasta):
-            output = tokenizer.encode(sequence)
-            #print(output.tokens, file=sys.stderr)
-            num_tokens = len(output)
-            shortest = min(shortest, num_tokens)
-            longest = max(longest, num_tokens)
-            average += num_tokens
-            num_sequences += 1
-    average /= num_sequences
-    print(f'number of sequences: {num_sequences}')
-    print(f'least tokens: {shortest}')
-    print(f'most tokens: {longest}')
-    print(f'average tokens: {average}')
+    #shortest = sys.maxsize
+    #longest = 0
+    #average = 0
+    #num_sequences = 0
+    #tokenizer = loadCornbertTokenizer()
+    #for fasta in fasta_files:
+    #    for sequence in fastaToSequences(fasta):
+    #        output = tokenizer.encode(sequence)
+    #        #print(output.tokens, file=sys.stderr)
+    #        num_tokens = len(output)
+    #        shortest = min(shortest, num_tokens)
+    #        longest = max(longest, num_tokens)
+    #        average += num_tokens
+    #        num_sequences += 1
+    #average /= num_sequences
+    #print(f'number of sequences: {num_sequences}')
+    #print(f'least tokens: {shortest}')
+    #print(f'most tokens: {longest}')
+    #print(f'average tokens: {average}')
