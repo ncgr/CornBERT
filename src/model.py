@@ -14,15 +14,39 @@ class CornBERT:
             type_vocab_size=1, # num of token types, in next sentence prediction tasks, one per sentence
             num_labels=10, # number of plant tissues. used in sequence classification model, not used in maskedlm model
         )
+    """
+    minimal config for testing
+    """
+    def small_roberta_config(self):
+        return RobertaConfig(
+            vocab_size=5004, # number of tokens in the vocabulary
+            hidden_size = 768, # embedding dimensionality, used throughout the model
+            max_position_embeddings=256, # maximum sequence length to be fed as a whole to encoder
+            num_attention_heads=2, # number of attention heads in the encoder
+            num_hidden_layers=1, # num of encoder layers
+            type_vocab_size=1, # num of token types, in next sentence prediction tasks, one per sentence
+            num_labels=10, # number of plant tissues. used in sequence classification model, not used in maskedlm model
+        )
+
 
 # child inherits data attributes from leftmost parent class, e.g. will inherit the model
 class CornBERTforMaskedLM(RobertaForMaskedLM,CornBERT):
-    def __init__(self):
-        super().__init__(config=self.roberta_config())
+    def __init__(self,small=False):
+        if small :
+            config = self.small_roberta_config()
+        else :
+            config = self.roberta_config()
+
+        super().__init__(config=config)
 
 class CornBERTforGeneExpression(RobertaForSequenceClassification,CornBERT):
-    def __init__(self):
-        super().__init__(config=self.roberta_config())
+    def __init__(self,small=False):
+        if small :
+            config = self.small_roberta_config()
+        else :
+            config = self.roberta_config()
+
+        super().__init__(config=config)
 
     # similar to RobertaForSequenceClassification, but 
     """
