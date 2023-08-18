@@ -14,7 +14,7 @@ tmp_gff="$1.regulatory.gff"
 
 # read the GFF gzip file to stdout, filter to only contain gene lines, adjust the gene
 # coordinates to be the 1000bp that precede the gene
-gunzip -c $1 | grep 'gene' | awk -v OFS='\t' '{$5=$4-1; $4=$4-1000; print}' > $tmp_gff
+gunzip -c $1 | grep 'gene' | awk '($4 > 1000 )' | awk -v OFS='\t' '{$5=$4-1; $4=$4-1000; print}' > $tmp_gff
 
 # extract the regulatory sequences into a new FASTA
 bedtools getfasta -fi $2 -bed $tmp_gff
