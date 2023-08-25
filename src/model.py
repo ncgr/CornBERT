@@ -64,11 +64,12 @@ if __name__ == '__main__':
 
     # test on random input
     from torch import randint
-    global model
-    model = CornBERTforMaskedLM()
-    #model = CornBERTforGeneExpression()
+    global model_masked 
+    model_masked = CornBERTforMaskedLM()
+    global model_gene
+    model_gene = CornBERTforGeneExpression()
     tokens = torch.randint(low=100,high=5000,size=(1,250))
     tokens[0][0] = 0
     tokens[0][-1] = 2
-    global output
-    output = model(tokens)
+    #global output
+    #output = model(tokens)

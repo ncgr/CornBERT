@@ -36,9 +36,16 @@ def pre_train(tokenizer, model, data_path):
     optimizer = Lamb(model.parameters(),betas=(0.9,0.999), eps=1e-8, max_grad_norm = 0.001)
     scheduler = transformers.get_linear_schedule_with_warmup(optimizer,num_warmup_steps=200,num_training_steps=2500)
 
+    # train using GPU; evaluate and save the model every epoch.
+    training_args = TrainingArguments(
+            output_dir = "cornbert_pretrain",
+            evaluation_strategy = "epoch",
+            per_device_train_batch_size = 8,
+            per_device_eval_batch_size = 8,
+            save_strategy = "epoch",
+            use_cpu = False,
+            seed=42)
 
-    # TODO: add bespoke arguments
-    training_args = TrainingArguments("test_trainer")
     # make a trainer TODO: add metrics
     trainer = Trainer(
         model=model,
